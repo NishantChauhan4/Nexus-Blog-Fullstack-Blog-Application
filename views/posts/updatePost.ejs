@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/42a182743f.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/form.css" />
+    <title>Post Update</title>
+  </head>
+  <body>
+    <%-include("../partials/navbar.ejs")%>
+
+    <div class="form-container">
+      <!-- icon -->
+      <h1>
+        Update Post
+
+        <!-- add icon -->
+        <i class="fas fa-plus"></i>
+      </h1>
+
+      <% if(error){ %>
+      <small class="error">
+        <i class="fas fa-exclamation-circle"></i>
+        <%=error %>
+      </small>
+      <% } %>
+
+      <form
+        action="/api/v1/posts/<%=postFound?._id%>?_method=PUT"
+        enctype="multipart/form-data"
+        method="POST"
+      >
+        <!-- Post Title -->
+        <div class="input-wrapper">
+          <label for="name">Post Title</label>
+          <input
+            type="text"
+            value="<%=postFound?.title%>"
+            name="title"
+            id="name"
+          />
+          <!-- err -->
+        </div>
+
+        <!-- Category -->
+        <div class="input-wrapper">
+          <label for="category">Category</label>
+          <select
+            value="<%=postFound?.category%>"
+            name="category"
+            id="category"
+          >
+            <option value="react js">React js</option>
+            <option value="node js">Node js</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="javascript">Javascript</option>
+            <option value="other">Other</option>
+          </select>
+          <!-- err -->
+        </div>
+        <div class="input-wrapper">
+          <!-- Post Body -->
+          <label for="body">Post Body</label>
+          <textarea name="description" id="body" cols="30" rows="10">
+<%=postFound?.description%></textarea
+          >
+          <!-- err -->
+        </div>
+        <!-- Post Image -->
+        <div class="input-wrapper">
+          <label for="image">Post Image</label>
+          <input type="file" name="post-image" id="image" />
+          <!-- err -->
+        </div>
+
+        <button type="submit">Update</button>
+      </form>
+    </div>
+
+    <%-include("../partials/footer.ejs")%>
+  </body>
+</html>
